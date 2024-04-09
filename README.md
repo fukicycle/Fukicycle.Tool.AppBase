@@ -68,25 +68,31 @@ dotnet add package Fukicycle.Tool.AppBase --version <version>
 	@inherits ViewBase
 	<h1>Hello, world!</h1>
 	<div>Members</div>
-	@foreach (string member in _members)
+	@if(_members != null)
 	{
-	    <div>@member</div>
+		@foreach (string member in _members)
+		{
+			<div>@member</div>
+		}
 	}
 	
-	@foreach (string skill in _skills)
+	@if(_skills != null)
 	{
-	    <div>@skill</div>
+		@foreach (string skill in _skills)
+		{
+			<div>@skill</div>
+		}
 	}
 	@code {
-	    private List<string> _members = new List<string>();
-	    private List<string> _skills = new List<string>();
+	    private List<string>? _members = null;
+	    private List<string>? _skills = null;
 	    protected override async Task OnInitializedAsync()
 	    {
-	        //no loader
-	        _members = Execute(GetMembers);
-	
 	        //loader
 	        _skills = await ExecuteAsync(GetSkillsAsync, true);
+	
+	        //no loader
+	        _members = Execute(GetMembers);
 	    }
 	
 	    private List<string> GetMembers()
