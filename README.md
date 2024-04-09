@@ -2,7 +2,7 @@
 
 [![Nuget](https://img.shields.io/nuget/v/Fukicycle.Tool.AppBase.svg)](https://www.nuget.org/packages/Fukicycle.Tool.AppBase)
 
-[![Build and publish packages](https://github.com/fukicycle/Fukicycle.Tool.AppBase/actions/workflows/production.yml/badge.svg)](https://github.com/fukicycle/Fukicycle.Tool.AppBase/actions/workflows/production.yml)
+[![Build and publish packages](https://github.com/fukicycle/Fukicycle.Tool.AppBase/actions/workflows/dotnet.yml/badge.svg)](https://github.com/fukicycle/Fukicycle.Tool.AppBase/actions/workflows/dotnet.yml)
 
 This library provides blazor app base function. For example, error handling, display loading and display dialog.
 
