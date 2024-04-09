@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net7.0;net8.0;</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageId>Fukicycle.Tool.AppBase</PackageId>
+		<Title>Fukicycle.Tool.AppBase</Title>
+		<Version>1.0.0</Version>
+		<Description>This library provides blazor app base function. For example, error handling, display loading and display dialog.</Description>
+		<AssemblyName>Fukicycle.Tool.AppBase</AssemblyName>
+		<Authors>fukicycle</Authors>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/fukicycle/Fukicycle.Tool.AppBase</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/fukicycle/Fukicycle.Tool.AppBase</RepositoryUrl>
+		<PackageTags>dotnet;blazor;blazor wasm;blazor web app;app;base;</PackageTags>
+		<Copyright>Copyright (c) 2024 fukicycle</Copyright>
+		<RepositoryType>git</RepositoryType>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.3" />
+	</ItemGroup>
+
+</Project>
