@@ -9,12 +9,7 @@ namespace Fukicycle.Tool.AppBase
         [Inject]
         public IStateContainer StateContainer { get; set; } = null!;
 
-        protected delegate Task<T> RunAsync<T>();
-        protected delegate Task RunAsync();
-        protected delegate T Run<T>();
-        protected delegate void Run();
-
-        protected async Task<T> ExecuteAsync<T>(RunAsync<T> method, bool hasLoading = false)
+        protected async Task<T> ExecuteAsync<T>(Func<Task<T>> method, bool hasLoading = false)
         {
             try
             {
@@ -38,7 +33,7 @@ namespace Fukicycle.Tool.AppBase
             return default!;
         }
 
-        protected async Task ExecuteAsync(RunAsync method, bool hasLoading = false)
+        protected async Task ExecuteAsync(Func<Task> method, bool hasLoading = false)
         {
             try
             {
@@ -61,7 +56,7 @@ namespace Fukicycle.Tool.AppBase
             }
         }
 
-        protected T Execute<T>(Run<T> method, bool hasLoading = false)
+        protected T Execute<T>(Func<T> method, bool hasLoading = false)
         {
             try
             {
@@ -85,7 +80,7 @@ namespace Fukicycle.Tool.AppBase
             return default!;
         }
 
-        protected void Execute(Run method, bool hasLoading = false)
+        protected void Execute(Action method, bool hasLoading = false)
         {
             try
             {
