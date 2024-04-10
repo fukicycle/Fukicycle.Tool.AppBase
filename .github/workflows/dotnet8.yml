@@ -1,9 +1,10 @@
-name: Package publish - Publish to Nuget
+name: Package publish(.NET8) - Publish to Nuget
 
 on:
   push:
     branches:
       - dotnet8
+  workflow_dispatch:
 
 jobs:
   publish:
