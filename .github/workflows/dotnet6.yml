@@ -3,7 +3,7 @@ name: Package publish - Publish to Nuget
 on:
   push:
     branches:
-      - master
+      - dotnet6
 
 jobs:
   publish:
