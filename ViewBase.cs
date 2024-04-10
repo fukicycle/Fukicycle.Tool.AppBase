@@ -17,7 +17,7 @@ namespace Fukicycle.Tool.AppBase
                 {
                     StateContainer.IsLoading = true;
                 }
-                return await method();
+                return await Task.Run(method);
             }
             catch (Exception ex)
             {
@@ -41,7 +41,7 @@ namespace Fukicycle.Tool.AppBase
                 {
                     StateContainer.IsLoading = true;
                 }
-                await method();
+                await Task.Run(method);
             }
             catch (Exception ex)
             {
