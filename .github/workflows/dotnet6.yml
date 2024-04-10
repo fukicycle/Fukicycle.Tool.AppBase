@@ -1,9 +1,10 @@
-name: Package publish - Publish to Nuget
+name: Package publish(.NET6) - Publish to Nuget
 
 on:
   push:
     branches:
-      - master
+      - dotnet6
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -14,7 +15,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 8
+          dotnet-version: 6
 
       - name: Build
         run: dotnet build --configuration Release
