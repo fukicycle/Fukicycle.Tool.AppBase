@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - dotnet7
+  workflow_dispatch:
 
 jobs:
   publish:
