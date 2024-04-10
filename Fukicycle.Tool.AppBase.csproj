@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0</TargetFrameworks>
+		<TargetFrameworks>net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<PackageId>Fukicycle.Tool.AppBase</PackageId>
 		<Title>Fukicycle.Tool.AppBase</Title>
-		<Version>6.0.0</Version>
+		<Version>8.0.0</Version>
 		<Description>This library provides blazor app base function. For example, error handling, display loading and display dialog.</Description>
 		<AssemblyName>Fukicycle.Tool.AppBase</AssemblyName>
 		<Authors>fukicycle</Authors>
@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.29" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.3" />
 	</ItemGroup>
 
 </Project>
