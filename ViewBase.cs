@@ -18,7 +18,7 @@ namespace Fukicycle.Tool.AppBase
         [Inject]
         public ILogger<ViewBase> Logger { get; set; } = null!;
 
-        protected async Task<T> ExecuteAsync<T>(Func<Task<T>> method, bool hasLoading = false)
+        protected async Task<T> ExecuteAsync<T>(Func<Task<T>> execution, bool hasLoading = false, Action<Exception>? exceptionHandler = null)
         {
             try
             {
@@ -26,11 +26,18 @@ namespace Fukicycle.Tool.AppBase
                 {
                     StateContainer.IsLoading = true;
                 }
-                return await Task.Run(method);
+                return await Task.Run(execution);
             }
             catch (Exception ex)
             {
-                StateContainer.DialogContent = new DialogContent(ex.Message, DialogType.Error);
+                if (exceptionHandler == null)
+                {
+                    StateContainer.DialogContent = new DialogContent(ex.Message, DialogType.Error);
+                }
+                else
+                {
+                    exceptionHandler.Invoke(ex);
+                }
             }
             finally
             {
@@ -42,7 +49,7 @@ namespace Fukicycle.Tool.AppBase
             return default!;
         }
 
-        protected async Task ExecuteAsync(Func<Task> method, bool hasLoading = false)
+        protected async Task ExecuteAsync(Func<Task> execution, bool hasLoading = false, Action<Exception>? exceptionHandler = null)
         {
             try
             {
@@ -50,11 +57,18 @@ namespace Fukicycle.Tool.AppBase
                 {
                     StateContainer.IsLoading = true;
                 }
-                await Task.Run(method);
+                await Task.Run(execution);
             }
             catch (Exception ex)
             {
-                StateContainer.DialogContent = new DialogContent(ex.Message, DialogType.Error);
+                if (exceptionHandler == null)
+                {
+                    StateContainer.DialogContent = new DialogContent(ex.Message, DialogType.Error);
+                }
+                else
+                {
+                    exceptionHandler.Invoke(ex);
+                }
             }
             finally
             {
@@ -65,7 +79,7 @@ namespace Fukicycle.Tool.AppBase
             }
         }
 
-        protected T Execute<T>(Func<T> method, bool hasLoading = false)
+        protected T Execute<T>(Func<T> execution, bool hasLoading = false, Action<Exception>? exceptionHandler = null)
         {
             try
             {
@@ -73,11 +87,18 @@ namespace Fukicycle.Tool.AppBase
                 {
                     StateContainer.IsLoading = true;
                 }
-                return method();
+                return execution();
             }
             catch (Exception ex)
             {
-                StateContainer.DialogContent = new DialogContent(ex.Message, DialogType.Error);
+                if (exceptionHandler == null)
+                {
+                    StateContainer.DialogContent = new DialogContent(ex.Message, DialogType.Error);
+                }
+                else
+                {
+                    exceptionHandler.Invoke(ex);
+                }
             }
             finally
             {
@@ -89,7 +110,7 @@ namespace Fukicycle.Tool.AppBase
             return default!;
         }
 
-        protected void Execute(Action method, bool hasLoading = false)
+        protected void Execute(Action execution, bool hasLoading = false, Action<Exception>? exceptionHandler = null)
         {
             try
             {
@@ -97,11 +118,18 @@ namespace Fukicycle.Tool.AppBase
                 {
                     StateContainer.IsLoading = true;
                 }
-                method();
+                execution();
             }
             catch (Exception ex)
             {
-                StateContainer.DialogContent = new DialogContent(ex.Message, DialogType.Error);
+                if (exceptionHandler == null)
+                {
+                    StateContainer.DialogContent = new DialogContent(ex.Message, DialogType.Error);
+                }
+                else
+                {
+                    exceptionHandler.Invoke(ex);
+                }
             }
             finally
             {
@@ -112,7 +140,7 @@ namespace Fukicycle.Tool.AppBase
             }
         }
 
-        protected async Task<T?> ExecuteWithHttpRequestAsync<T, TSource>(HttpMethod httpMethod, string endPoint, TSource jsonBody, Dictionary<string, string>? headers = null, bool force = false, bool hasLoading = true)
+        protected async Task<T?> ExecuteWithHttpRequestAsync<T, TSource>(HttpMethod httpMethod, string endPoint, TSource jsonBody, Dictionary<string, string>? headers = null, bool force = false, bool hasLoading = true, Action<Exception>? exceptionHanlder = null)
         {
             try
             {
@@ -155,7 +183,14 @@ namespace Fukicycle.Tool.AppBase
             }
             catch (Exception ex)
             {
-                StateContainer.DialogContent = new DialogContent(ex.Message, DialogType.Error);
+                if (exceptionHanlder == null)
+                {
+                    StateContainer.DialogContent = new DialogContent(ex.Message, DialogType.Error);
+                }
+                else
+                {
+                    exceptionHanlder.Invoke(ex);
+                }
                 Logger.LogError(ex.StackTrace);
             }
             finally
@@ -168,7 +203,7 @@ namespace Fukicycle.Tool.AppBase
             return default;
         }
 
-        protected async Task<T?> ExecuteWithHttpRequestAsync<T>(HttpMethod httpMethod, string endPoint, Dictionary<string, string>? headers = null, bool force = false, bool hasLoading = true)
+        protected async Task<T?> ExecuteWithHttpRequestAsync<T>(HttpMethod httpMethod, string endPoint, Dictionary<string, string>? headers = null, bool force = false, bool hasLoading = true, Action<Exception>? exceptionHanlder = null)
         {
             try
             {
@@ -207,7 +242,14 @@ namespace Fukicycle.Tool.AppBase
             }
             catch (Exception ex)
             {
-                StateContainer.DialogContent = new DialogContent(ex.Message, DialogType.Error);
+                if (exceptionHanlder == null)
+                {
+                    StateContainer.DialogContent = new DialogContent(ex.Message, DialogType.Error);
+                }
+                else
+                {
+                    exceptionHanlder.Invoke(ex);
+                }
                 Logger.LogError(ex.StackTrace);
             }
             finally
