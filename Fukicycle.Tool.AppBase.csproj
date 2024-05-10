@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<PackageId>Fukicycle.Tool.AppBase</PackageId>
 		<Title>Fukicycle.Tool.AppBase</Title>
-		<Version>6.0.4</Version>
+		<Version>6.0.5</Version>
 		<Description>This library provides blazor app base function. For example, error handling, display loading and display dialog.</Description>
 		<AssemblyName>Fukicycle.Tool.AppBase</AssemblyName>
 		<Authors>fukicycle</Authors>
