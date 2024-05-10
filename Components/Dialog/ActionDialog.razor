@@ -1,0 +1,31 @@
+@if (_isShow)
+{
+    <div class="dialog-wrapper">
+        <div class="dialog-container">
+            <div class="dialog-header">
+                <div class="dialog-title">@_header</div>
+                <button @onclick=@CloseButtonOnClick class="close-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.9059 5.41534L18.5846 6.09406L6.09406 18.5837L5.41534 17.9054L17.9059 5.41534Z" fill="#F2F2F2" />
+                        <path d="M6.09406 5.41534L18.5846 17.9049L17.9059 18.5841L5.41534 6.09454L6.09406 5.41534Z" fill="#F2F2F2" />
+                    </svg>
+                </button>
+            </div>
+            <div class="dialog-body">@_content</div>
+            <div class="dialog-action">
+                @switch (_dialogType)
+                {
+                    case DialogType.Information:
+                    case DialogType.Warning:
+                    case DialogType.Error:
+                        <button class="ok-btn" @onclick=@OkButtonOnClick>OK</button>
+                        break;
+                    case DialogType.Confirm:
+                        <button class="ok-btn" @onclick=@OkButtonOnClick>OK</button>
+                        <button class="ok-btn" @onclick=@CloseButtonOnClick>Cancel</button>
+                        break;
+                }
+            </div>
+        </div>
+    </div>
+}
