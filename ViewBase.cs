@@ -261,5 +261,60 @@ namespace Fukicycle.Tool.AppBase
             }
             return default;
         }
+
+        protected async Task ExecuteWithHttpRequestAsync<TSource>(HttpMethod httpMethod, string endPoint, TSource jsonBody, Dictionary<string, string>? headers = null, bool force = false, bool hasLoading = true, Action<Exception>? exceptionHanlder = null)
+        {
+            try
+            {
+                if (hasLoading)
+                {
+                    StateContainer.IsLoading = true;
+                }
+                HttpRequestMessage httpRequestMessage = new HttpRequestMessage(httpMethod, new Uri(endPoint, UriKind.RelativeOrAbsolute));
+                if (jsonBody != null)
+                {
+                    httpRequestMessage.Content = new StringContent(JsonConvert.SerializeObject(jsonBody), System.Text.Encoding.UTF8, "application/json");
+                }
+                if (headers != null && headers.Any())
+                {
+                    foreach (KeyValuePair<string, string> header in headers)
+                    {
+                        if (httpRequestMessage.Headers.Any(a => a.Key == header.Key))
+                        {
+                            if (force)
+                            {
+                                httpRequestMessage.Headers.Remove(header.Key);
+                            }
+                            else
+                            {
+                                throw new InvalidOperationException($"This header has already added. Header name:{header.Key},Value:{header.Value}. If you want to override, you can use force option.");
+                            }
+                        }
+                        httpRequestMessage.Headers.Add(header.Key, header.Value);
+                    }
+                }
+                HttpResponseMessage httpResponseMessage = await HttpClient.SendAsync(httpRequestMessage);
+                httpResponseMessage.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                if (exceptionHanlder == null)
+                {
+                    StateContainer.DialogContent = new DialogContent(ex.Message, DialogType.Error);
+                }
+                else
+                {
+                    exceptionHanlder.Invoke(ex);
+                }
+                Logger.LogError(ex.StackTrace);
+            }
+            finally
+            {
+                if (hasLoading)
+                {
+                    StateContainer.IsLoading = false;
+                }
+            }
+        }
     }
 }
